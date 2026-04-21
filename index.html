@@ -1,0 +1,565 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07080d;--s1:#0d0e16;--s2:#13141f;--s3:#1a1b28;
+  --b1:#1e2030;--b2:#2a2c40;--b3:#3a3d55;
+  --acc:#f7931a;--acc2:#ffb04a;--acc3:#ff6b00;
+  --txt:#dde0f0;--txt2:#8a8faa;--txt3:#4a4e6a;
+  --ok:#2ecc8e;--err:#e8524a;--info:#4d8df5;
+  --display:'Bebas Neue',sans-serif;
+  --body:'DM Sans',sans-serif;
+  --mono:'DM Mono',monospace;
+}
+.w{background:var(--bg);color:var(--txt);font-family:var(--body);font-size:14px;line-height:1.6;border-radius:12px;overflow:hidden;min-height:600px}
+
+/* ── NAV ── */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;background:rgba(7,8,13,0.98);border-bottom:1px solid var(--b1)}
+.logo{font-family:var(--display);font-size:24px;letter-spacing:.06em;cursor:pointer;display:flex;align-items:center;gap:2px}
+.logo-a{color:var(--acc)}.logo-b{color:var(--txt)}
+.logo-dot{width:5px;height:5px;background:var(--acc);border-radius:50%;margin-top:-10px}
+.navlinks{display:flex;gap:4px;list-style:none}
+.navlinks button{background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt2);padding:6px 12px;border-radius:4px;transition:all .15s}
+.navlinks button:hover{color:var(--acc);background:rgba(247,147,26,.06)}
+.navlinks button.on{color:var(--acc);background:rgba(247,147,26,.1)}
+.nav-cta{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:var(--acc);color:#000;border:none;padding:7px 16px;cursor:pointer;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px));font-weight:500;transition:background .15s}
+.nav-cta:hover{background:var(--acc2)}
+
+/* ── TICKER ── */
+.ticker-bar{height:28px;background:var(--s1);border-bottom:1px solid var(--b1);overflow:hidden;display:flex;align-items:center;position:relative}
+.ticker-bar::before,.ticker-bar::after{content:'';position:absolute;top:0;bottom:0;width:40px;z-index:2;pointer-events:none}
+.ticker-bar::before{left:0;background:linear-gradient(90deg,var(--s1),transparent)}
+.ticker-bar::after{right:0;background:linear-gradient(-90deg,var(--s1),transparent)}
+.ticker-track{display:flex;gap:0;animation:scroll 28s linear infinite;white-space:nowrap}
+.ti{font-family:var(--mono);font-size:10px;letter-spacing:.07em;color:var(--txt3);padding:0 18px;display:flex;align-items:center;gap:5px;border-right:1px solid var(--b1)}
+.ti b{font-weight:400;color:var(--txt2)}.ok{color:var(--ok)}.err{color:var(--err)}
+.ti-live{color:var(--acc);display:flex;align-items:center;gap:4px}
+.live-dot{width:5px;height:5px;background:var(--acc);border-radius:50%;animation:pulse 1.4s ease-in-out infinite}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+
+/* ── PAGES ── */
+.page{display:none}.page.on{display:block}
+
+/* ── HERO ── */
+.hero{position:relative;padding:56px 32px 52px;overflow:hidden;border-bottom:1px solid var(--b1)}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(var(--b1) 1px,transparent 1px),linear-gradient(90deg,var(--b1) 1px,transparent 1px);background-size:44px 44px;opacity:.5;mask-image:radial-gradient(ellipse 80% 100% at 50% 50%,black 10%,transparent 100%)}
+.hglow{position:absolute;width:560px;height:400px;border-radius:50%;background:radial-gradient(ellipse,rgba(247,147,26,.1) 0%,transparent 70%);top:20%;left:30%;transform:translate(-50%,-20%)}
+.hglow2{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(ellipse,rgba(77,141,245,.07) 0%,transparent 70%);top:60%;left:70%}
+.hero-inner{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.hero-tag{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.hero-tag::before{content:'';display:inline-block;width:18px;height:1px;background:var(--acc)}
+.hero h1{font-family:var(--display);font-size:76px;line-height:.9;letter-spacing:.02em;margin-bottom:20px}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero-sub{font-size:13px;color:var(--txt2);max-width:360px;margin-bottom:28px;line-height:1.75}
+.hbtns{display:flex;gap:10px;flex-wrap:wrap}
+.btn-p{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:var(--acc);color:#000;border:none;padding:10px 22px;cursor:pointer;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));font-weight:500;transition:background .15s}
+.btn-p:hover{background:var(--acc2)}
+.btn-o{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--txt);border:1px solid var(--b2);padding:10px 22px;cursor:pointer;transition:all .15s}
+.btn-o:hover{border-color:var(--acc);color:var(--acc)}
+
+/* ── PRICE WIDGET ── */
+.price-widget{background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:20px;position:relative;overflow:hidden}
+.price-widget::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc3),var(--acc),var(--acc2))}
+.pw-label{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);margin-bottom:8px}
+.pw-price{font-family:var(--display);font-size:52px;color:var(--txt);letter-spacing:.02em;line-height:1;margin-bottom:4px}
+.pw-change{font-family:var(--mono);font-size:11px;margin-bottom:16px}
+.pw-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.pwm{background:var(--s3);border:1px solid var(--b1);border-radius:4px;padding:8px 10px}
+.pwm-l{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt3);margin-bottom:2px}
+.pwm-v{font-family:var(--mono);font-size:12px;color:var(--txt)}
+.mini-chart{height:48px;width:100%}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--b1);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1)}
+.stat{background:var(--s1);padding:20px 16px;text-align:center;transition:background .2s;cursor:default}
+.stat:hover{background:var(--s2)}
+.snum{font-family:var(--display);font-size:44px;color:var(--acc);letter-spacing:.02em;line-height:1;display:block}
+.slbl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--txt3);margin-top:4px;display:block}
+
+/* ── SECTION ── */
+.sec{padding:44px 28px;border-bottom:1px solid var(--b1)}
+.sec-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.sec-h{font-family:var(--display);font-size:38px;letter-spacing:.02em;line-height:.95;margin-bottom:10px}
+.sec-sub{color:var(--txt2);font-size:12px;margin-bottom:28px;max-width:380px;line-height:1.7}
+
+/* ── CARDS ── */
+.cgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--b1)}
+.card{background:var(--s1);padding:24px;position:relative;overflow:hidden;cursor:pointer;transition:background .18s}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--acc);transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.card:hover{background:var(--s2)}
+.card:hover::before{transform:scaleX(1)}
+.card-ic{width:34px;height:34px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:14px;background:var(--s3);flex-shrink:0}
+.card h3{font-family:var(--display);font-size:20px;letter-spacing:.04em;margin-bottom:6px}
+.card p{font-size:12px;color:var(--txt2);line-height:1.65;margin-bottom:14px}
+.card-arrow{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc)}
+.badge{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:3px 7px;border-radius:2px}
+.badge-live{color:var(--ok);background:rgba(46,204,142,.1);border:1px solid rgba(46,204,142,.2)}
+.badge-tool{color:var(--acc);background:rgba(247,147,26,.08);border:1px solid rgba(247,147,26,.2)}
+.badge-soon{color:var(--txt3);background:var(--s3);border:1px solid var(--b2)}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+
+/* ── HEATMAP (on-chain) ── */
+.heatmap{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:8px}
+.hm-cell{height:18px;border-radius:2px;transition:opacity .2s;cursor:pointer}
+.hm-cell:hover{opacity:.7}
+
+/* ── CTA ── */
+.cta{padding:52px 28px;text-align:center;border-bottom:1px solid var(--b1);position:relative;overflow:hidden}
+.cta-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(247,147,26,.05) 0%,transparent 100%);pointer-events:none}
+.cta-content{position:relative}
+
+/* ── FOOTER ── */
+.footer{padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;background:var(--s1)}
+.fl{font-family:var(--display);font-size:18px;color:var(--acc);letter-spacing:.05em}
+.flinks{display:flex;gap:20px;list-style:none}
+.flinks button{background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt3);transition:color .15s;padding:0}
+.flinks button:hover{color:var(--acc)}
+.fcopy{font-family:var(--mono);font-size:10px;color:var(--txt3);width:100%;border-top:1px solid var(--b1);padding-top:14px;margin-top:4px}
+
+/* ── CONSULTING ── */
+.con-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.eng-card{background:var(--s2);border:1px solid var(--b1);border-left:2px solid var(--acc);padding:18px 20px;margin-bottom:1px;transition:background .18s;cursor:pointer}
+.eng-card:hover{background:var(--s3)}
+.eng-card h4{font-family:var(--display);font-size:17px;letter-spacing:.04em;margin-bottom:4px}
+.eng-card p{font-size:11px;color:var(--txt2);line-height:1.6}
+.form-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt3);margin-bottom:5px;display:block}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.form-el{background:var(--s2);border:1px solid var(--b1);color:var(--txt);padding:9px 12px;font-family:var(--body);font-size:13px;width:100%;outline:none;transition:border-color .15s;border-radius:3px}
+.form-el:focus{border-color:var(--acc)}
+.form-el::placeholder{color:var(--txt3)}
+select.form-el option{background:var(--s2)}
+.alert{padding:10px 14px;font-family:var(--mono);font-size:11px;margin-top:10px;border-radius:3px;display:none}
+.alert.ok{border:1px solid var(--ok);color:var(--ok);background:rgba(46,204,142,.06)}
+.alert.err{border:1px solid var(--err);color:var(--err);background:rgba(232,82,74,.06)}
+
+/* ── DONATE ── */
+.don-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.addr-box{background:var(--s2);border:1px solid var(--b1);border-color:var(--acc);padding:18px;margin-bottom:1px}
+.addr{font-family:var(--mono);font-size:11px;letter-spacing:.05em;word-break:break-all;color:var(--acc);background:var(--s3);padding:12px;border:1px solid var(--b1);line-height:1.8;margin:12px 0;border-radius:3px}
+.copy-btn{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;background:transparent;border:1px solid var(--b2);color:var(--txt2);padding:6px 14px;cursor:pointer;transition:all .15s;border-radius:2px}
+.copy-btn:hover{border-color:var(--acc);color:var(--acc)}
+
+/* ── LEARNING ── */
+.learn-grid{display:grid;grid-template-columns:200px 1fr;gap:28px}
+.learn-nav{display:flex;flex-direction:column;gap:1px}
+.ln-item{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:9px 12px;color:var(--txt3);cursor:pointer;border:1px solid transparent;transition:all .15s;background:none;border-radius:3px;text-align:left}
+.ln-item:hover,.ln-item.on{color:var(--acc);border-color:var(--b2);background:var(--s2)}
+.module{background:var(--s2);border:1px solid var(--b1);padding:20px;margin-bottom:1px;transition:background .18s}
+.module:hover{background:var(--s3)}
+.mod-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.mod-tags{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
+.mod-tag{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt3);border:1px solid var(--b2);padding:3px 8px;border-radius:2px}
+.mod-h{font-family:var(--display);font-size:20px;letter-spacing:.03em;margin-bottom:4px}
+.mod-p{font-size:12px;color:var(--txt2);line-height:1.65}
+
+/* ── DCA TOOL ── */
+.dca-grid{display:grid;grid-template-columns:280px 1fr;gap:20px}
+.dca-panel{background:var(--s2);border:1px solid var(--b1);padding:18px;border-radius:3px}
+.dca-panel h4{font-family:var(--display);font-size:16px;letter-spacing:.04em;margin-bottom:14px;color:var(--txt2)}
+.dca-results{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--b1);margin-bottom:1px}
+.dca-r{background:var(--s2);padding:16px;text-align:center}
+.dca-rn{font-family:var(--display);font-size:28px;color:var(--acc);line-height:1}
+.dca-rl{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);margin-top:3px}
+
+/* ── MINI SPARKLINE ── */
+canvas{display:block}
+
+/* ── PAGE HERO ── */
+.page-hero{padding:48px 28px 36px;border-bottom:1px solid var(--b1);position:relative;overflow:hidden}
+.page-hero-bg{position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-family:var(--display);font-size:120px;color:var(--s2);letter-spacing:.02em;line-height:1;pointer-events:none;user-select:none}
+
+/* ── RING ANIMATION ── */
+@keyframes ring{0%{transform:scale(.8);opacity:.8}100%{transform:scale(2);opacity:0}}
+</style>
+
+<h2 class="sr-only">AdaptBTC — Bitcoin intelligence platform with live price, tools, consulting, learning, and donate sections.</h2>
+
+<div class="w">
+
+  <nav class="nav">
+    <div class="logo"><span class="logo-a">ADAPT</span><span class="logo-b">BTC</span><span class="logo-dot"></span></div>
+    <ul class="navlinks">
+      <li><button class="on" onclick="nav('home')">Home</button></li>
+      <li><button onclick="nav('tools')">Tools</button></li>
+      <li><button onclick="nav('consulting')">Consulting</button></li>
+      <li><button onclick="nav('learning')">Learning</button></li>
+      <li><button onclick="nav('donate')">Donate</button></li>
+    </ul>
+    <button class="nav-cta" onclick="nav('consulting')">Get Started ↗</button>
+  </nav>
+
+  <div class="ticker-bar">
+    <div class="ticker-track" id="ticker">
+      <span class="ti"><span class="ti-live"><span class="live-dot"></span>LIVE</span></span>
+      <span class="ti"><b>BTC/USD</b><span class="ok" id="t-price">▲ $67,430</span></span>
+      <span class="ti"><b>24h</b><span class="ok">+2.41%</span></span>
+      <span class="ti"><b>Mkt Cap</b><span class="ok">$1.32T</span></span>
+      <span class="ti"><b>Dom</b><span class="ok">54.2%</span></span>
+      <span class="ti"><b>Hash Rate</b><span class="ok">620 EH/s</span></span>
+      <span class="ti"><b>Block</b><span style="color:var(--txt2)">841,204</span></span>
+      <span class="ti"><b>Mempool</b><span class="err">12.4 MB</span></span>
+      <span class="ti"><b>Fee</b><span class="err">18 sat/vB</span></span>
+      <span class="ti"><b>Halving</b><span style="color:var(--info)">~158k blocks</span></span>
+      <span class="ti"><span class="ti-live"><span class="live-dot"></span>LIVE</span></span>
+      <span class="ti"><b>BTC/USD</b><span class="ok" >▲ $67,430</span></span>
+      <span class="ti"><b>24h</b><span class="ok">+2.41%</span></span>
+      <span class="ti"><b>Mkt Cap</b><span class="ok">$1.32T</span></span>
+      <span class="ti"><b>Dom</b><span class="ok">54.2%</span></span>
+      <span class="ti"><b>Hash Rate</b><span class="ok">620 EH/s</span></span>
+      <span class="ti"><b>Block</b><span style="color:var(--txt2)">841,204</span></span>
+      <span class="ti"><b>Mempool</b><span class="err">12.4 MB</span></span>
+      <span class="ti"><b>Fee</b><span class="err">18 sat/vB</span></span>
+      <span class="ti"><b>Halving</b><span style="color:var(--info)">~158k blocks</span></span>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div class="page on" id="page-home">
+    <div class="hero">
+      <div class="hero-bg"><div class="hgrid"></div><div class="hglow"></div><div class="hglow2"></div></div>
+      <div class="hero-inner">
+        <div>
+          <p class="hero-tag">Bitcoin Intelligence Platform</p>
+          <h1>ADAPT.<br/><em>ACCUM-<br/>ULATE.</em><br/>SUCCEED.</h1>
+          <p class="hero-sub">Professional-grade Bitcoin tools, education, and consulting for individuals and institutions navigating the new financial paradigm.</p>
+          <div class="hbtns">
+            <button class="btn-p" onclick="nav('tools')">Explore Tools ↗</button>
+            <button class="btn-o" onclick="nav('consulting')">Work With Us</button>
+          </div>
+        </div>
+        <div>
+          <div class="price-widget">
+            <p class="pw-label">Bitcoin / USD — Live</p>
+            <div class="pw-price" id="pw-price">$67,430</div>
+            <div class="pw-change ok" id="pw-chg">▲ +$1,582 &nbsp;+2.41% &nbsp;24h</div>
+            <div class="pw-metrics">
+              <div class="pwm"><div class="pwm-l">24h High</div><div class="pwm-v">$68,900</div></div>
+              <div class="pwm"><div class="pwm-l">24h Low</div><div class="pwm-v">$65,100</div></div>
+              <div class="pwm"><div class="pwm-l">Volume</div><div class="pwm-v">$38.2B</div></div>
+              <div class="pwm"><div class="pwm-l">Block</div><div class="pwm-v">841,204</div></div>
+            </div>
+            <canvas class="mini-chart" id="sparkline" height="48"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span class="snum">4+</span><span class="slbl">Live Tools</span></div>
+      <div class="stat"><span class="snum">100%</span><span class="slbl">Bitcoin Focus</span></div>
+      <div class="stat"><span class="snum">24/7</span><span class="slbl">Live Data</span></div>
+      <div class="stat"><span class="snum">∞</span><span class="slbl">Sats to Stack</span></div>
+    </div>
+
+    <div class="sec">
+      <p class="sec-lbl">What We Offer</p>
+      <h2 class="sec-h">Everything Bitcoin.<br/>Nothing Else.</h2>
+      <p class="sec-sub">A focused suite of tools and services built exclusively for the Bitcoin ecosystem — zero noise, pure signal.</p>
+      <div class="cgrid">
+        <div class="card" onclick="nav('tools')">
+          <div class="card-head"><div class="card-ic">⚡</div><span class="badge badge-live">Live</span></div>
+          <h3>Live Feed</h3>
+          <p>Real-time price, on-chain metrics, mempool depth, and network health in one unified dashboard.</p>
+          <span class="card-arrow">Open Feed →</span>
+        </div>
+        <div class="card" onclick="nav('tools')">
+          <div class="card-head"><div class="card-ic">📊</div><span class="badge badge-tool">Tool</span></div>
+          <h3>DCA Calculator</h3>
+          <p>Model dollar-cost averaging strategies across any timeframe. Visualize returns, optimize your plan.</p>
+          <span class="card-arrow">Run Calculator →</span>
+        </div>
+        <div class="card" onclick="nav('learning')">
+          <div class="card-head"><div class="card-ic">🎓</div><span class="badge badge-tool">Portal</span></div>
+          <h3>Learning Portal</h3>
+          <p>Structured Bitcoin education from first principles to advanced concepts — self-paced, no fluff.</p>
+          <span class="card-arrow">Start Learning →</span>
+        </div>
+        <div class="card" onclick="nav('consulting')">
+          <div class="card-head"><div class="card-ic">🤝</div><span class="badge badge-soon">Advisory</span></div>
+          <h3>Consulting</h3>
+          <p>Strategic Bitcoin advisory for teams and high-net-worth individuals. Tailored, battle-tested plans.</p>
+          <span class="card-arrow">Inquire →</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta">
+      <div class="cta-bg"></div>
+      <div class="cta-content">
+        <p class="sec-lbl" style="justify-content:center;display:flex">Support the Mission</p>
+        <h2 class="sec-h" style="margin-bottom:12px">Stack Sats.<br/>Fund Signal.</h2>
+        <p style="color:var(--txt2);font-size:12px;max-width:360px;margin:0 auto 24px;line-height:1.7">AdaptBTC is independently operated. No ads, no sponsors — just Bitcoin-native funding from people who value the mission.</p>
+        <button class="btn-p" onclick="nav('donate')">Donate Bitcoin ₿</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="page" id="page-tools">
+    <div class="page-hero"><div class="page-hero-bg">TOOLS</div>
+      <p class="sec-lbl">Platform</p>
+      <h1 class="sec-h">Bitcoin Tools</h1>
+      <p style="color:var(--txt2);font-size:12px">Professional instruments for the serious Bitcoin stacker.</p>
+    </div>
+    <div class="sec">
+      <p class="sec-lbl">DCA Calculator</p>
+      <h2 class="sec-h" style="font-size:26px;margin-bottom:20px">Dollar-Cost Averaging</h2>
+      <div class="dca-grid">
+        <div class="dca-panel">
+          <h4>Parameters</h4>
+          <div style="margin-bottom:10px"><label class="form-lbl">Amount / purchase (USD)</label><input class="form-el" type="number" id="d-amt" value="100" min="1"/></div>
+          <div style="margin-bottom:10px"><label class="form-lbl">Frequency</label>
+            <select class="form-el" id="d-freq"><option value="7">Weekly</option><option value="14">Bi-weekly</option><option value="30" selected>Monthly</option></select></div>
+          <div style="margin-bottom:10px"><label class="form-lbl">Start price (USD)</label><input class="form-el" type="number" id="d-sp" value="10000"/></div>
+          <div style="margin-bottom:10px"><label class="form-lbl">End price (USD)</label><input class="form-el" type="number" id="d-ep" value="67430"/></div>
+          <div style="margin-bottom:14px"><label class="form-lbl">Duration (months)</label><input class="form-el" type="number" id="d-mo" value="48" min="1" max="240"/></div>
+          <button class="btn-p" style="width:100%" onclick="calcDCA()">Calculate ↗</button>
+        </div>
+        <div>
+          <div class="dca-results">
+            <div class="dca-r"><div class="dca-rn" id="d-inv">$0</div><div class="dca-rl">Invested</div></div>
+            <div class="dca-r"><div class="dca-rn" id="d-val">$0</div><div class="dca-rl">Value Now</div></div>
+            <div class="dca-r"><div class="dca-rn ok" id="d-ret">+0%</div><div class="dca-rl">Return</div></div>
+            <div class="dca-r"><div class="dca-rn" id="d-sats">0M</div><div class="dca-rl">Sats</div></div>
+          </div>
+          <div style="background:var(--s2);border:1px solid var(--b1);padding:16px;border-radius:3px">
+            <p class="sec-lbl" style="margin-bottom:10px">Accumulation Curve</p>
+            <canvas id="dca-chart" height="160" style="width:100%"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONSULTING -->
+  <div class="page" id="page-consulting">
+    <div class="page-hero"><div class="page-hero-bg">CONSULT</div>
+      <p class="sec-lbl">Advisory</p>
+      <h1 class="sec-h">Bitcoin Consulting</h1>
+      <p style="color:var(--txt2);font-size:12px">Strategic guidance for businesses, treasuries, and individuals serious about Bitcoin adoption.</p>
+    </div>
+    <div class="sec">
+      <div class="con-grid">
+        <div>
+          <p class="sec-lbl">Engagements</p>
+          <h2 class="sec-h" style="font-size:26px;margin-bottom:16px">What We Do</h2>
+          <div class="eng-card"><h4>Treasury Strategy</h4><p>Bitcoin allocation frameworks for corporate treasuries. Policy drafting, board education, custodial solutions.</p></div>
+          <div class="eng-card"><h4>Personal Advisory</h4><p>One-on-one sessions: custody, DCA strategy, tax considerations, long-term wealth planning in Bitcoin.</p></div>
+          <div class="eng-card"><h4>Team Training</h4><p>Bitcoin fundamentals workshops for finance, legal, and executive teams. Custom curriculum, practical exercises.</p></div>
+          <div class="eng-card"><h4>Technical Deep Dive</h4><p>Lightning Network, multisig setups, node operation, and on-chain analytics for technical clients.</p></div>
+          <div style="margin-top:16px;padding:14px 16px;border:1px solid var(--b1);background:var(--s2)">
+            <p class="sec-lbl">Direct Contact</p>
+            <p style="font-family:var(--mono);color:var(--acc);font-size:11px;margin-top:3px">support@adaptbtc.com</p>
+          </div>
+        </div>
+        <div>
+          <p class="sec-lbl">Get Started</p>
+          <h2 class="sec-h" style="font-size:26px;margin-bottom:6px">Send a Request</h2>
+          <p style="color:var(--txt2);font-size:11px;margin-bottom:18px">We respond within 1–2 business days.</p>
+          <div class="form-row">
+            <div><label class="form-lbl">Full Name *</label><input class="form-el" id="c-name" placeholder="Satoshi Nakamoto"/></div>
+            <div><label class="form-lbl">Email *</label><input class="form-el" id="c-email" placeholder="you@example.com"/></div>
+          </div>
+          <div class="form-row">
+            <div><label class="form-lbl">Engagement *</label>
+              <select class="form-el" id="c-eng"><option value="" disabled selected>Select…</option><option>Treasury Strategy</option><option>Personal Advisory</option><option>Team Training</option><option>Technical Deep Dive</option><option>Other</option></select></div>
+            <div><label class="form-lbl">Team Size *</label>
+              <select class="form-el" id="c-size"><option value="" disabled selected>Select…</option><option>Solo</option><option>2–10</option><option>11–50</option><option>50+</option></select></div>
+          </div>
+          <div style="margin-bottom:12px"><label class="form-lbl">Notes</label><textarea class="form-el" id="c-notes" rows="4" placeholder="Tell us about your goals…" style="resize:vertical"></textarea></div>
+          <button class="btn-p" style="width:100%" onclick="submitConsult()">Submit Request ↗</button>
+          <div class="alert ok" id="c-ok">Request received — we'll be in touch within 1–2 business days.</div>
+          <div class="alert err" id="c-err"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEARNING -->
+  <div class="page" id="page-learning">
+    <div class="page-hero"><div class="page-hero-bg">LEARN</div>
+      <p class="sec-lbl">Education</p>
+      <h1 class="sec-h">Learning Portal</h1>
+      <p style="color:var(--txt2);font-size:12px">From zero to sovereign — structured Bitcoin education at your own pace.</p>
+    </div>
+    <div class="sec">
+      <div class="learn-grid">
+        <div>
+          <p class="sec-lbl">Curriculum</p>
+          <div class="learn-nav" style="margin-top:10px">
+            <button class="ln-item on" onclick="setMod(0)">01 — Foundations</button>
+            <button class="ln-item" onclick="setMod(1)">02 — Money &amp; History</button>
+            <button class="ln-item" onclick="setMod(2)">03 — Bitcoin Protocol</button>
+            <button class="ln-item" onclick="setMod(3)">04 — Self-Custody</button>
+            <button class="ln-item" onclick="setMod(4)">05 — On-Chain Analysis</button>
+            <button class="ln-item" onclick="setMod(5)">06 — Lightning Network</button>
+          </div>
+        </div>
+        <div id="mod-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DONATE -->
+  <div class="page" id="page-donate">
+    <div class="page-hero"><div class="page-hero-bg">₿</div>
+      <p class="sec-lbl">Support</p>
+      <h1 class="sec-h">Support AdaptBTC</h1>
+      <p style="color:var(--txt2);font-size:12px">Independently operated. No ads. No sponsors. Powered by the community.</p>
+    </div>
+    <div class="sec">
+      <div class="don-grid">
+        <div>
+          <p class="sec-lbl">Why Donate</p>
+          <h2 class="sec-h" style="font-size:26px;margin-bottom:14px">Keep the Signal Free</h2>
+          <p style="color:var(--txt2);font-size:12px;line-height:1.8;margin-bottom:20px">AdaptBTC is built to provide unbiased Bitcoin intelligence. No venture capital, no token incentives — just Bitcoin-native funding from people who value the mission.</p>
+          <div class="eng-card" style="margin-bottom:1px"><h4>⚡ Lightning Network</h4><p>Instant, low-fee donations via Lightning. Preferred for small amounts.</p></div>
+          <div class="eng-card"><h4>₿ On-Chain Bitcoin</h4><p>Send directly to our Bitcoin address for larger contributions. Every sat counts.</p></div>
+        </div>
+        <div>
+          <div class="addr-box">
+            <p class="sec-lbl">On-Chain Address</p>
+            <div class="addr" id="btc-addr">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</div>
+            <button class="copy-btn" id="copy-btn" onclick="copyAddr()">Copy Address</button>
+          </div>
+          <div style="background:var(--s2);border:1px solid var(--b1);padding:18px;margin-top:1px;text-align:center">
+            <p class="sec-lbl" style="margin-bottom:12px">Scan QR Code</p>
+            <div style="display:inline-block;background:#fff;padding:8px;border-radius:4px">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?data=bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh&size=140x140&margin=0" width="140" height="140" alt="Bitcoin QR" onerror="this.parentElement.innerHTML='<span style=font-size:11px;color:#999;font-family:monospace>QR unavailable</span>'" style="display:block"/>
+            </div>
+            <p style="font-family:var(--mono);font-size:9px;color:var(--txt3);margin-top:10px">Scan with any Bitcoin wallet</p>
+          </div>
+          <div style="margin-top:1px;padding:12px 14px;border:1px solid var(--b1);background:var(--s2);font-family:var(--mono);font-size:10px;color:var(--txt3);line-height:1.7">
+            Donations are non-refundable. For acknowledgement email <span style="color:var(--acc)">support@adaptbtc.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="fl">ADAPTBTC</div>
+    <ul class="flinks">
+      <li><button onclick="nav('tools')">Tools</button></li>
+      <li><button onclick="nav('consulting')">Consulting</button></li>
+      <li><button onclick="nav('learning')">Learning</button></li>
+      <li><button onclick="nav('donate')">Donate</button></li>
+    </ul>
+    <p class="fcopy">© 2024 AdaptBTC — Not financial advice. Stack responsibly.</p>
+  </div>
+
+</div>
+
+<script>
+const modules = [
+  {n:'Bitcoin Foundations',s:'What is Bitcoin? A first-principles introduction to sound money, digital scarcity, and why Bitcoin is different from everything else.',lvl:'Beginner',time:'45 min',lessons:5,avail:true},
+  {n:'Money &amp; History',s:'From barter to gold to fiat — how money evolved, why central bank currency fails, and what hard money means for civilizations.',lvl:'Beginner',time:'60 min',lessons:7,avail:true},
+  {n:'Bitcoin Protocol',s:'How Bitcoin actually works: UTXOs, proof-of-work, difficulty adjustment, mining, halvings, and the code that enforces rules no government can override.',lvl:'Intermediate',time:'90 min',lessons:9,avail:true},
+  {n:'Self-Custody',s:'From seed phrase generation to multisig vault setup. Be your own bank — safely and with confidence.',lvl:'Intermediate',time:'75 min',lessons:8,avail:false},
+  {n:'On-Chain Analysis',s:'Read the blockchain like a map: UTXO set analysis, exchange flows, HODL waves, and what smart money is doing.',lvl:'Advanced',time:'120 min',lessons:11,avail:false},
+  {n:'Lightning Network',s:'Node operation, channel management, routing fees, and building on the Lightning Network layer.',lvl:'Advanced',time:'100 min',lessons:10,avail:false},
+];
+
+function setMod(i) {
+  document.querySelectorAll('.ln-item').forEach((b,j)=>b.classList.toggle('on',i===j));
+  const m = modules[i];
+  const lvlColor = m.lvl==='Beginner'?'var(--ok)':m.lvl==='Intermediate'?'var(--acc)':'var(--info)';
+  document.getElementById('mod-content').innerHTML = m.avail ? `
+    <div class="module"><div class="mod-head"><p class="sec-lbl">Module 0${i+1}</p><span class="badge badge-live">Available</span></div>
+    <h3 class="mod-h">${m.n}</h3><p class="mod-p">${m.s}</p>
+    <div class="mod-tags"><span class="mod-tag" style="color:${lvlColor};border-color:${lvlColor}40">${m.lvl}</span><span class="mod-tag">${m.time}</span><span class="mod-tag">${m.lessons} lessons</span></div>
+    <button class="btn-p" style="margin-top:16px">Start Module →</button></div>
+  ` : `
+    <div class="module" style="opacity:.55"><div class="mod-head"><p class="sec-lbl">Module 0${i+1}</p><span class="badge badge-soon">Coming Soon</span></div>
+    <h3 class="mod-h">${m.n}</h3><p class="mod-p">${m.s}</p>
+    <div class="mod-tags"><span class="mod-tag" style="color:${lvlColor};border-color:${lvlColor}40">${m.lvl}</span><span class="mod-tag">${m.time}</span><span class="mod-tag">${m.lessons} lessons</span></div></div>
+  `;
+}
+setMod(0);
+
+function nav(p) {
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('on'));
+  document.querySelectorAll('.navlinks button').forEach(b=>b.classList.remove('on'));
+  document.getElementById('page-'+p).classList.add('on');
+  document.querySelectorAll('.navlinks button').forEach(b=>{if(b.textContent.toLowerCase().includes(p==='home'?'home':p))b.classList.add('on')});
+  if(p==='home'){document.querySelectorAll('.navlinks button')[0].classList.add('on');}
+  if(p==='tools'){setTimeout(calcDCA,100);}
+}
+
+function submitConsult() {
+  const name=document.getElementById('c-name').value.trim(),email=document.getElementById('c-email').value.trim(),eng=document.getElementById('c-eng').value,sz=document.getElementById('c-size').value;
+  document.getElementById('c-ok').style.display='none';document.getElementById('c-err').style.display='none';
+  if(!name||!email||!eng||!sz){document.getElementById('c-err').textContent='Please complete all required fields.';document.getElementById('c-err').style.display='block';return;}
+  if(!email.includes('@')){document.getElementById('c-err').textContent='Enter a valid email address.';document.getElementById('c-err').style.display='block';return;}
+  document.getElementById('c-ok').style.display='block';
+}
+
+function copyAddr() {
+  const a=document.getElementById('btc-addr').textContent.trim();
+  navigator.clipboard.writeText(a).then(()=>{
+    const b=document.getElementById('copy-btn');b.textContent='Copied!';b.style.color='var(--ok)';b.style.borderColor='var(--ok)';
+    setTimeout(()=>{b.textContent='Copy Address';b.style.color='';b.style.borderColor='';},2200);
+  });
+}
+
+function drawSparkline() {
+  const c=document.getElementById('sparkline');if(!c)return;
+  const w=c.offsetWidth||300,h=48;c.width=w;c.height=h;
+  const ctx=c.getContext('2d');
+  const pts=[];let v=65000;
+  for(let i=0;i<40;i++){v+=(Math.random()-.47)*400;pts.push(Math.max(63000,Math.min(69000,v)));}
+  const mn=Math.min(...pts),mx=Math.max(...pts);
+  const sx=i=>(i/(pts.length-1))*w,sy=v=>h-(((v-mn)/(mx-mn))*h*.85+h*.075);
+  const g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'rgba(247,147,26,.22)');g.addColorStop(1,'rgba(247,147,26,0)');
+  ctx.beginPath();ctx.moveTo(sx(0),sy(pts[0]));pts.forEach((p,i)=>ctx.lineTo(sx(i),sy(p)));
+  ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.closePath();ctx.fillStyle=g;ctx.fill();
+  ctx.beginPath();ctx.moveTo(sx(0),sy(pts[0]));pts.forEach((p,i)=>ctx.lineTo(sx(i),sy(p)));
+  ctx.strokeStyle='#f7931a';ctx.lineWidth=1.5;ctx.stroke();
+}
+
+function calcDCA() {
+  const inv=parseFloat(document.getElementById('d-amt').value)||100,
+        freq=parseInt(document.getElementById('d-freq').value)||30,
+        sp=parseFloat(document.getElementById('d-sp').value)||10000,
+        ep=parseFloat(document.getElementById('d-ep').value)||67430,
+        mo=parseInt(document.getElementById('d-mo').value)||48;
+  const purch=Math.floor(mo*30/freq);let totalInv=0,totalSats=0;const hist=[];
+  for(let i=0;i<purch;i++){const prog=i/(purch-1||1),price=sp*Math.pow(ep/sp,prog)*(1+(Math.random()-.5)*.08);
+    const sats=Math.round((inv/price)*1e8);totalSats+=sats;totalInv+=inv;
+    hist.push({inv:totalInv,val:(totalSats/1e8)*ep});}
+  const finalVal=Math.round((totalSats/1e8)*ep),gain=((finalVal-totalInv)/totalInv*100);
+  document.getElementById('d-inv').textContent='$'+Math.round(totalInv).toLocaleString();
+  document.getElementById('d-val').textContent='$'+finalVal.toLocaleString();
+  document.getElementById('d-ret').textContent=(gain>=0?'+':'')+gain.toFixed(1)+'%';
+  document.getElementById('d-ret').className='dca-rn '+(gain>=0?'ok':'err');
+  document.getElementById('d-sats').textContent=(totalSats/1e6).toFixed(1)+'M';
+  const c=document.getElementById('dca-chart');if(!c)return;
+  const W=c.offsetWidth||320,H=160;c.width=W;c.height=H;
+  const ctx=c.getContext('2d'),pad={t:10,r:10,b:24,l:50},cw=W-pad.l-pad.r,ch=H-pad.t-pad.b;
+  ctx.clearRect(0,0,W,H);
+  const maxY=Math.max(...hist.map(d=>d.val))*1.08;
+  const xs=i=>pad.l+(i/(hist.length-1))*cw,ys=v=>pad.t+ch-(v/maxY)*ch;
+  ctx.strokeStyle='#1e2030';ctx.lineWidth=.5;
+  for(let i=0;i<=4;i++){const y=pad.t+(i/4)*ch;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cw,y);ctx.stroke();}
+  const g2=ctx.createLinearGradient(0,pad.t,0,pad.t+ch);g2.addColorStop(0,'rgba(247,147,26,.2)');g2.addColorStop(1,'rgba(247,147,26,0)');
+  ctx.beginPath();ctx.moveTo(xs(0),ys(hist[0].inv));hist.forEach((d,i)=>ctx.lineTo(xs(i),ys(d.inv)));
+  ctx.lineTo(xs(hist.length-1),ys(0));ctx.lineTo(xs(0),ys(0));ctx.closePath();ctx.fillStyle='rgba(58,61,85,.3)';ctx.fill();
+  ctx.beginPath();hist.forEach((d,i)=>i?ctx.lineTo(xs(i),ys(d.inv)):ctx.moveTo(xs(i),ys(d.inv)));ctx.strokeStyle='#3a3d55';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(xs(0),ys(hist[0].val));hist.forEach((d,i)=>ctx.lineTo(xs(i),ys(d.val)));
+  ctx.lineTo(xs(hist.length-1),ys(0));ctx.lineTo(xs(0),ys(0));ctx.closePath();ctx.fillStyle=g2;ctx.fill();
+  ctx.beginPath();hist.forEach((d,i)=>i?ctx.lineTo(xs(i),ys(d.val)):ctx.moveTo(xs(i),ys(d.val)));ctx.strokeStyle='#f7931a';ctx.lineWidth=2;ctx.stroke();
+  ctx.fillStyle='#4a4e6a';ctx.font='9px DM Mono,monospace';ctx.textAlign='right';
+  for(let i=0;i<=4;i++){const v=(maxY/4)*(4-i);ctx.fillText('$'+(v>=1000?(v/1000).toFixed(0)+'k':Math.round(v)),pad.l-5,pad.t+(i/4)*ch+3);}
+}
+
+let base=67430;
+setInterval(()=>{base+=(Math.random()-.49)*50;base=Math.max(65000,Math.min(70000,base));
+  const el=document.getElementById('pw-price');if(el)el.textContent='$'+Math.round(base).toLocaleString();
+  const t=document.getElementById('t-price');if(t){t.textContent='▲ $'+Math.round(base).toLocaleString();}
+},2200);
+
+setTimeout(()=>{drawSparkline();calcDCA();},400);
+</script>
