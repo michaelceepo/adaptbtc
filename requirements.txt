@@ -1,0 +1,7 @@
+Flask
+Gunicorn
+bcrypt
+python-dotenv
+Pillow
+qrcode
+requests
